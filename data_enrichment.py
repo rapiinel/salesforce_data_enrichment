@@ -58,7 +58,7 @@ class DE_class:
 		self.get_vacant_field(Phone = self.phone_variable_list, Fax = self.fax_variable_list, Email = self.email_variable_list,
 								Web = self.web_variable_list, State = self.state_variable_list, zip = self.zip_variable_list, Street = self.street_variable_list,
 								City = self.city_variable_list)
-		self.get_output()
+		# self.get_output()
 
 	def clean_phone(self):
 		for phone in self.phone_variable_list:
