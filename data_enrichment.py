@@ -188,6 +188,19 @@ class DE_class:
 
 		self.output = self.df[self.needed_columns].copy()
 
+		for column in self.found_in_sf_columns:
+			self.get_value(column)
+
+		def get_value(self, column):
+			keyword = column.replace(' Found in SF', "")
+			keyword = keyword.relace(' - cleaned', "")
+			for row in self.df[column]:
+				if row == False:
+					self.output[row + ]
+
+			self.output[keyword]
+
+
 
 
 
