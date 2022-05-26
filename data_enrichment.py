@@ -58,7 +58,7 @@ class DE_class:
 		self.get_vacant_field(Phone = self.phone_variable_list, Fax = self.fax_variable_list, Email = self.email_variable_list,
 								Web = self.web_variable_list, State = self.state_variable_list, zip = self.zip_variable_list, Street = self.street_variable_list,
 								City = self.city_variable_list)
-		self.get_output()
+		# self.get_output()
 
 	def clean_phone(self):
 		for phone in self.phone_variable_list:
@@ -172,10 +172,15 @@ class DE_class:
 			temp_list = list[1:]
 			self.df[key + ' - Vacant Field'] = self.df.apply(lambda x: checker([x[i] for i in temp_list], temp_list), axis = 1)
 
-	def get_output(self):
-		self.web_scraped_columns = ['First and Last', 'First Name', 'Last Name', 'suffix', 'status',
-       'Phone', 'phoneExt', 'fax', 'Web', 'street', 'city', 'state', 'zip',
-       'Email', 'Bar Admission Date', 'Bar State']
+	def get_output(self,key_guide):
+		if 'Match_Id' in self.df.columns.tolist():
+			self.web_scraped_columns = ['Match_AccountId', 'Match_Id','First and Last', 'First Name', 'Last Name', 'suffix', 'status',
+		'Phone', 'phoneExt', 'fax', 'Web', 'street', 'city', 'state', 'zip',
+		'Email', 'Bar Admission Date', 'Bar State']
+		else:
+			self.web_scraped_columns = ['Match_Id','First and Last', 'First Name', 'Last Name', 'suffix', 'status',
+		'Phone', 'phoneExt', 'fax', 'Web', 'street', 'city', 'state', 'zip',
+		'Email', 'Bar Admission Date', 'Bar State']
 
 		self.found_in_sf_columns = [x for x in self.df.columns if 'found in sf' in x.lower()]
 
@@ -188,17 +193,13 @@ class DE_class:
 
 		self.output = self.df[self.needed_columns].copy()
 
-		for column in self.found_in_sf_columns:
-			self.get_value(column)
+		temp_list = []
+		for index, column in enumerate(self.vacant_field_columns):
+			# self.get_value(column)
+			print(f"index: {index} | ", f"column: {column} | ", f"found in sf: {self.found_in_sf_columns[index]}")
+			temp_list.append(self.output.pivot(columns = column, values = key_guide[column]))
 
-		def get_value(self, column):
-			keyword = column.replace(' Found in SF', "")
-			keyword = keyword.relace(' - cleaned', "")
-			for row in self.df[column]:
-				if row == False:
-					self.output[row + ]
-
-			self.output[keyword]
+		self.final_output = pd.concat(temp_list, axis = 1)
 
 
 
