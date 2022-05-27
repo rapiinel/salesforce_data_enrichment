@@ -201,6 +201,8 @@ class DE_class:
 
 		self.final_output = pd.concat(temp_list, axis = 1)
 
+		self.output = self.output.merge(self.final_output, right_index=True, left_index=True)
+
 
 
 
