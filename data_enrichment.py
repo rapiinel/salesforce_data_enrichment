@@ -173,7 +173,7 @@ class DE_class:
 			self.df[key + ' - Vacant Field'] = self.df.apply(lambda x: checker([x[i] for i in temp_list], temp_list), axis = 1)
 
 	def get_output(self,key_guide):
-		if 'Match_Id' in self.df.columns.tolist():
+		if 'Match_AccountId' in self.df.columns.tolist():
 			self.web_scraped_columns = ['Match_AccountId', 'Match_Id','First and Last', 'First Name', 'Last Name', 'suffix', 'status',
 		'Phone', 'phoneExt', 'fax', 'Web', 'street', 'city', 'state', 'zip',
 		'Email', 'Bar Admission Date', 'Bar State']
@@ -190,6 +190,8 @@ class DE_class:
 		self.needed_columns.extend(self.web_scraped_columns)
 		self.needed_columns.extend(self.found_in_sf_columns)
 		self.needed_columns.extend(self.vacant_field_columns)
+
+		print(self.needed_columns)
 
 		self.output = self.df[self.needed_columns].copy()
 
